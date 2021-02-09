@@ -1,2 +1,9 @@
 # pytorch_utils
-All PyTorch utilities used for training and testing models
+
+Usage:
+Clone this repo inside your code.
+
+```
+import pytorch_utils as utils
+utils.save_img('image.png', img)
+```
