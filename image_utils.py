@@ -4,7 +4,7 @@ import cv2
 
 def load_img(filepath):
     img = cv2.imread(filepath)
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return img
 
 def save_img(filepath, img):
