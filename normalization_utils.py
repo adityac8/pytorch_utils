@@ -42,8 +42,8 @@ class LayerNorm(nn.Module):
 
     def forward(self, x):
         mu = x.mean(-1, keepdim=True)
-        sigma = x.std(-1, keepdim=True, unbiased=False)
-        return (x - mu) / sigma * self.weight + self.bias
+        sigma = x.var(-1, keepdim=True, unbiased=False)
+        return (x - mu) / torch.sqrt(sigma+1e-5) * self.weight + self.bias
 
 class LayerNormBiasFree(nn.Module):
     def __init__(self, normalized_shape):
@@ -58,8 +58,8 @@ class LayerNormBiasFree(nn.Module):
         self.normalized_shape = normalized_shape
 
     def forward(self, x):
-        sigma = x.std(-1, keepdim=True, unbiased=False)
-        return x / sigma * self.weight
+        sigma = x.var(-1, keepdim=True, unbiased=False)
+        return x / torch.sqrt(sigma+1e-5) * self.weight
     
     
 class BatchNormBiasFree(nn.BatchNorm2d):
